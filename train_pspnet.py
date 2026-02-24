@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import segmentation_models_pytorch as smp
 from torch.utils.data import DataLoader
-from torch.cuda.amp import autocast, GradScaler
+from torch.amp import autocast, GradScaler
 
 from lib.loss import FocalTverskyLoss
 from lib.dataset import MultiChannelDataset
@@ -40,7 +40,7 @@ model = smp.PSPNet(encoder_name=ENCODER, encoder_weights=ENCODER_WEIGHTS,
 criterion = FocalTverskyLoss(alpha=FTL_ALPHA, beta=FTL_BETA)
 optimizer = torch.optim.AdamW(model.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", patience=10, factor=0.5)
-scaler = GradScaler()
+scaler = GradScaler('cuda')
 
 best_val = float("inf")
 wait = 0
@@ -56,7 +56,7 @@ for epoch in range(1, EPOCHS + 1):
     for images, masks in train_loader:
         images, masks = images.to(device), masks.to(device)
         optimizer.zero_grad()
-        with autocast():
+        with autocast('cuda'):
             out = model(images).squeeze(1)
             loss = criterion(out, masks)
         scaler.scale(loss).backward()

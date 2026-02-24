@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-from torch.cuda.amp import autocast
+from torch.amp import autocast
 
 
 def train_kd_epoch(teacher, student, loader, optimizer, criterion,
@@ -14,7 +14,7 @@ def train_kd_epoch(teacher, student, loader, optimizer, criterion,
         images, labels = images.to(device), labels.to(device)
         optimizer.zero_grad()
 
-        with autocast():
+        with autocast('cuda'):
             with torch.no_grad():
                 t_logits = teacher(images).squeeze(1)
             s_logits = student(images).squeeze(1)

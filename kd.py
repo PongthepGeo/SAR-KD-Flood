@@ -1,6 +1,6 @@
 import torch
 from torch.utils.data import DataLoader
-from torch.cuda.amp import GradScaler
+from torch.amp import GradScaler
 
 from lib.loss import FocalTverskyLoss
 from lib.dataset import MultiChannelDataset
@@ -70,7 +70,7 @@ student = create_student_model(
 criterion = FocalTverskyLoss(alpha=FTL_ALPHA, beta=FTL_BETA)
 optimizer = torch.optim.AdamW(student.parameters(), lr=LR, weight_decay=WEIGHT_DECAY)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode="min", patience=10, factor=0.5)
-scaler = GradScaler()
+scaler = GradScaler('cuda')
 
 best_val = float("inf")
 wait = 0
