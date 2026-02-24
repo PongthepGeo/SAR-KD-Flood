@@ -85,7 +85,7 @@ python kd.py
 
 ## Note
 
-The teacher model in `kd.py` uses ImageNet-pretrained encoder weights via `segmentation-models-pytorch`. For enhanced performance, request task-specific pretrained weights from the authors.
+The teacher model in `kd.py` uses ImageNet-pretrained encoder weights via `segmentation-models-pytorch`. For the training dataset (`02_kfold/`) and task-specific pretrained weights, please contact: watcharapong.s@ubu.ac.th
 
 ## Acknowledgments and Third-Party Licenses
 
