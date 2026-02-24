@@ -4,7 +4,7 @@ Training code for:
 
 **Distilling Intelligence from Space: Lightweight Deep Learning for SAR-Based Flood Monitoring**
 
-## Overview
+## Overview.
 
 Knowledge Distillation (KD) framework for compressing segmentation models trained on Sentinel-1 Synthetic Aperture Radar (SAR) imagery for flood mapping. Models process single-channel 256x256 patches using a band-agnostic approach — training on all available bands (VV, VH, B2, B3, B4, NDVI, NDWI) while validating on SAR-only (VV, VH).
 
